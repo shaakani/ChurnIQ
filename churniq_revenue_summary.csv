@@ -1,0 +1,2 @@
+full_customer_base,test_set_size,high_risk_flagged_test,annual_revenue_at_risk_test,annual_revenue_at_risk_full_scaled,high_risk_count_full_scaled,actual_churned_annual_revenue_test,actual_churned_annual_revenue_full_scaled
+7500,1875,472,80143.92,320575.68,1888,102793.56,411174.24
