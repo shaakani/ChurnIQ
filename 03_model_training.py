@@ -10,6 +10,8 @@ come out of training - nothing here is tuned to hit a specific target number.
 Saves an ROC curve plot and a results CSV.
 """
 
+import json
+import joblib
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -112,3 +114,26 @@ importances.to_csv("churniq_feature_importance.csv", header=["importance"])
 
 print(f"\nBest model used for downstream revenue analysis: {best_name}")
 print(f"Test set size: {len(y_test):,} customers ({len(X_train):,} in training set)")
+
+# --- Persist the winning model for serving (API/Docker) ---
+# Saved together so the serving layer always knows exactly what to load and
+# how to preprocess incoming requests - whichever model won this run.
+model_bundle = {
+    "model_type": best_name,                     # "Logistic Regression" or "Random Forest"
+    "model": logreg if best_name == "Logistic Regression" else rf,
+    "scaler": scaler,                             # only applied at inference time if model_type is Logistic Regression
+    "feature_columns": list(X.columns),           # exact column order the model expects
+    "auc": float(best_auc),
+    "threshold": 0.5,
+}
+joblib.dump(model_bundle, "churniq_model.joblib")
+with open("churniq_model_metadata.json", "w") as f:
+    json.dump({
+        "model_type": best_name,
+        "auc": round(float(best_auc), 4),
+        "feature_columns": list(X.columns),
+        "threshold": 0.5,
+        "trained_on_rows": int(len(X_train) + len(X_test)),
+    }, f, indent=2)
+print(f"\nSaved model bundle to churniq_model.joblib ({best_name}, AUC={best_auc:.4f})")
+print("Saved churniq_model_metadata.json")

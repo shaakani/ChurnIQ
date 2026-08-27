@@ -1,0 +1,30 @@
+{
+  "model_type": "Logistic Regression",
+  "auc": 0.7559,
+  "feature_columns": [
+    "age",
+    "average_watch_hours",
+    "mobile_app_usage_pct",
+    "complaints_raised",
+    "received_promotions",
+    "referred_by_friend",
+    "monthly_fee",
+    "tenure_days",
+    "watch_per_fee_ratio",
+    "is_heavy_complainer",
+    "is_new_customer",
+    "gender_Male",
+    "gender_Other",
+    "country_Canada",
+    "country_France",
+    "country_Germany",
+    "country_India",
+    "country_Ireland",
+    "country_UK",
+    "country_USA",
+    "subscription_type_Premium",
+    "subscription_type_Standard"
+  ],
+  "threshold": 0.5,
+  "trained_on_rows": 7500
+}

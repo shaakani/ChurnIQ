@@ -1,0 +1,9 @@
+# Minimal dependencies for the serving API only (no matplotlib/training deps -
+# keeps the Docker image smaller and closer to what a real deployment needs).
+pandas==2.2.3
+numpy==1.26.4
+scikit-learn==1.7.2
+joblib==1.4.2
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+pydantic==2.9.2
