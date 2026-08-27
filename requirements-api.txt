@@ -1,8 +1,14 @@
 # Minimal dependencies for the serving API only (no matplotlib/training deps -
 # keeps the Docker image smaller and closer to what a real deployment needs).
+#
+# scikit-learn is pinned to 1.6.1 specifically to match the version that
+# trained churniq_model.joblib (see 03_model_training.py) - using a different
+# version here causes an InconsistentVersionWarning at load time and risks
+# subtly incorrect predictions, since sklearn doesn't guarantee pickle
+# compatibility across versions.
 pandas==2.2.3
 numpy==1.26.4
-scikit-learn==1.7.2
+scikit-learn==1.6.1
 joblib==1.4.2
 fastapi==0.115.5
 uvicorn[standard]==0.32.1

@@ -67,6 +67,8 @@ class CustomerFeatures(BaseModel):
 
 
 class PredictionResponse(BaseModel):
+    model_config = {"protected_namespaces": ()}  # allow field names starting with "model_"
+
     churn_probability: float
     predicted_churn: bool
     risk_tier: str
